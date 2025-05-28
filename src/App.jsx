@@ -13,30 +13,38 @@ function App() {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/people/:id" element={<SingleResources />} />
+      <div className="grid grid-cols-12 gap-0">
+        <div className="col-start-2 col-end-12">
+          <Routes>
 
-        <Route path="/films" element={<Films />} />
-        <Route path="/films/:id" element={<SingleResources />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/people/:id" element={<SingleResources />} />
 
-        <Route path="/planets" element={<Planets />} />
-        <Route path="/planets/:id" element={<SingleResources />} />
+            <Route path="/films" element={<Films />} />
+            <Route path="/films/:id" element={<SingleResources />} />
 
-        <Route path="/starships" element={<Starships />} />
-        <Route path="/starships/:id" element={<SingleResources />} />
+            <Route path="/planets" element={<Planets />} />
+            <Route path="/planets/:id" element={<SingleResources />} />
 
-        <Route path="/planets" element={<Planets />} />
-        <Route path="/planets/:id" element={<SingleResources />} />
+            <Route path="/starships" element={<Starships />} />
+            <Route path="/starships/:id" element={<SingleResources />} />
 
-        <Route path="/vehicles" element={<Vehicles />} />
-        <Route path="/vehicles/:id" element={<SingleResources />} />
+            <Route path="/planets" element={<Planets />} />
+            <Route path="/planets/:id" element={<SingleResources />} />
 
-        <Route path="/species" element={<Species />} />
-        <Route path="/species/:id" element={<SingleResources />} />
+            <Route path="/vehicles" element={<Vehicles />} />
+            <Route path="/vehicles/:id" element={<SingleResources />} />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+            <Route path="/species" element={<Species />} />
+            <Route path="/species/:id" element={<SingleResources />} />
+
+            <Route path="*" element={<NotFound />} />
+
+
+          </Routes>
+
+        </div>
+      </div>
     </>
   );
 }

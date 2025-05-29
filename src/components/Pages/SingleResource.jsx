@@ -3,6 +3,7 @@ import {
   Table, TableBody, TableCell, TableContainer,
   TableRow, Paper, Typography
 } from '@mui/material';
+import formatDate from '../../utils/DateConverter/DateConverter';
 
 const SingleResource = ({ resource, resourceType, }) => {
   console.log(resource)
@@ -172,7 +173,7 @@ const SingleResource = ({ resource, resourceType, }) => {
     const properties = resource?.properties || {};
 
     const rows = [
-      { label: 'Resource Type', value: 'Starship' },
+      { label: 'Resource Type', value: 'Vehicle' },
       { label: 'Model', value: properties.model },
       { label: 'vehicle_class', value: properties.vehicle_class },
       { label: 'Manufacturer', value: properties.manufacturer },
@@ -211,26 +212,40 @@ const SingleResource = ({ resource, resourceType, }) => {
       </div>
     );
   } else {
+   const properties = resource?.properties || {};
+
+    const rows = [
+      { label: 'Resource Type', value: 'Film' },
+      { label: 'description', value: resource?.description },
+      { label: 'director', value: properties?.director },
+      { label: 'producer', value: properties?.producer },
+      { label: 'release_date', value: formatDate(properties?.release_date, {month: 'short',  day: 'numeric', year: 'numeric' }) },
+      
+    ];
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-red-100 transition-colors transform duration-500 hover:text-black hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
         onClick={() => onClick(resource.uid)}
       >
-        <h1 className="font-bold text-2xl">
+        <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.title}</span>
         </h1>
-        <h2 className="font-medium text-md">
-          <span className='text-blue-500'>Released Date</span> : {formatDate(resource.properties?.release_date, { month: 'short', day: 'numeric', year: 'numeric' })}
-        </h2>
-        <h2 className="font-medium text-md">
-          <span className='text-blue-500'>Vehicle Class</span> : {resource.properties?.vehicle_class}
-        </h2>
-        <h2 className="font-medium text-md">
-          <span className='text-blue-500'>Director</span> : {resource.properties?.director}
-        </h2>
-        <h2 className="font-medium text-md">
-          <span className='text-blue-500'>Producer</span> : {resource.properties?.producer}
-        </h2>
+        <TableContainer component={Paper} className="rounded-lg shadow-md overflow-hidden my-10">
+          <Table className="min-w-full">
+            <TableBody>
+              {rows.map((row, index) => (
+                <TableRow key={index} className={index % 2 === 0 ? 'bg-gray-500' : 'bg-gray-600'}>
+                  <TableCell className="py-3 px-4 border-none">
+                    <span className='text-gray-900 font-bold text-lg'>{row.label.replaceAll('_', ' ').replace(/\b\w/g, char => char.toUpperCase())}</span>
+                  </TableCell>
+                  <TableCell className="py-3 px-4 border-none">
+                    <span className='text-gray-900 font-bold text-lg'>{row.value ?? 'N/A'}</span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     );
   }

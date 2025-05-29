@@ -1,6 +1,8 @@
 # Star Wars Universe
 
-A full-stack web application that provides an interactive interface to explore the Star Wars universe using the SWAPI (Star Wars API). Built with React frontend and Express backend middleware.
+A full-stack web application that provides an interactive interface to explore the Star Wars universe using the SWAPI (Star Wars API). Built with React frontend and [Express backend middleware](https://github.com/samkabir/Starwars-Universe-Middleware).
+
+# [Live Functional Link](https://starwars-universe-middleware.vercel.app/)
 
 ## 🚀 Features
 
@@ -36,7 +38,7 @@ A full-stack web application that provides an interactive interface to explore t
 1. **Clone both repositories:**
    ```bash
    # Clone the frontend repository
-   git clone [your-frontend-repo-url]
+   git clone https://github.com/samkabir/StarWars-Universe
    
    # Clone the middleware repository
    git clone https://github.com/samkabir/Starwars-Universe-Middleware
@@ -65,9 +67,6 @@ A full-stack web application that provides an interactive interface to explore t
    ```
 
 4. **Access the application: Open your browser and navigate to http://localhost:5173**
-   
-Open your browser and navigate to http://localhost:5173
-
 
 ## 🧪 Testing & QA
 

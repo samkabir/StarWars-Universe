@@ -31,7 +31,7 @@ const Header = () => {
     ];
   return (
     <div className="p-8 text-center bg-gray-900 w-full flex justify-center items-center">
-      <div className="flex justify-center items-center gap-4">
+      <div className="flex flex-wrap justify-center items-center gap-4">
         {
             links.map((link) => (
                 <Link

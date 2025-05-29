@@ -1,14 +1,16 @@
 import React from 'react';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import SingleResource from '../../Pages/SingleResource';
 
-const SingleResourceLayout = ({ 
-  resource, 
-  resourceType, 
-  loading, 
-  error, 
-  onRetry 
+const SingleResourceLayout = ({
+  resource,
+  resourceType,
+  loading,
+  error,
+  onRetry
 }) => {
+
   if (loading) {
     return <LoadingSpinner message="Loading resource..." />;
   }
@@ -27,7 +29,12 @@ const SingleResourceLayout = ({
 
   return (
     <div className="container mx-auto px-4 py-6">
-      
+      <SingleResource
+        resource={resource}
+        resourceType={resourceType}
+      />
+
+
     </div>
   );
 };

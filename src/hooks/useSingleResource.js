@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { fetchSingleData } from '../api/fetchSingleData';
 
-// Simple in-memory cache (could be moved to a separate cache utility)
 const resourceCache = {};
 
 export const useSingleResource = (resourceType, id) => {
@@ -46,7 +45,6 @@ export const useSingleResource = (resourceType, id) => {
   }, [resourceType, id, cachedResource, cacheKey]);
 
   const refetch = useCallback(() => {
-    // Clear cache for this resource and refetch
     delete resourceCache[cacheKey];
     fetchData();
   }, [cacheKey, fetchData]);

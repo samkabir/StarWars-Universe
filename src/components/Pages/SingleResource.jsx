@@ -4,9 +4,18 @@ import {
   TableRow, Paper, Typography
 } from '@mui/material';
 import formatDate from '../../utils/DateConverter/DateConverter';
+import SmallNameCards from '../UI/Cards/SmallNameCard';
+import { useNavigate } from 'react-router-dom';
 
 const SingleResource = ({ resource, resourceType, }) => {
+  const navigate = useNavigate();
   console.log(resource)
+
+  const handleResourceClick = (character, resourceType) => {
+    navigate(`/${resourceType}/${character.id}`);
+  };
+
+
   if (resourceType == 'planets') {
     const properties = resource?.properties || {};
 
@@ -24,7 +33,6 @@ const SingleResource = ({ resource, resourceType, }) => {
     return (
       <div
         className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
-        onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -63,7 +71,6 @@ const SingleResource = ({ resource, resourceType, }) => {
     return (
       <div
         className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
-        onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -84,6 +91,14 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        {properties?.homeworld && (
+          <SmallNameCards
+            resourceUrls={[properties.homeworld]}
+            onresourceClick={handleResourceClick}
+            title="World"
+            resourceType="planets"
+          />
+        )}
       </div>
     );
   } else if (resourceType == 'species') {
@@ -103,7 +118,6 @@ const SingleResource = ({ resource, resourceType, }) => {
     return (
       <div
         className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
-        onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -124,6 +138,12 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        <SmallNameCards
+          resourceUrls={properties?.people}
+          onresourceClick={handleResourceClick}
+          title="Characters in this Film"
+          resourceType="people"
+        />
       </div>
     );
   } else if (resourceType == 'starships') {
@@ -167,6 +187,19 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        <SmallNameCards
+          resourceUrls={properties?.films}
+          onresourceClick={handleResourceClick}
+          title="Films"
+          resourceType="films"
+        />
+        {properties?.pilots?.length > 0 &&
+          <SmallNameCards
+            resourceUrls={properties?.pilots}
+            onresourceClick={handleResourceClick}
+            title="Pilots"
+            resourceType="people"
+          />}
       </div>
     );
   } else if (resourceType == 'vehicles') {
@@ -188,7 +221,6 @@ const SingleResource = ({ resource, resourceType, }) => {
     return (
       <div
         className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
-        onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -209,23 +241,37 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        <SmallNameCards
+          resourceUrls={properties?.films}
+          onresourceClick={handleResourceClick}
+          title="Films"
+          resourceType="films"
+        />
+        {properties?.pilots?.length > 0 &&
+          <SmallNameCards
+            resourceUrls={properties?.pilots}
+            onresourceClick={handleResourceClick}
+            title="Pilots"
+            resourceType="people"
+          />}
+
       </div>
     );
   } else {
-   const properties = resource?.properties || {};
+    const properties = resource?.properties || {};
 
     const rows = [
       { label: 'Resource Type', value: 'Film' },
       { label: 'description', value: resource?.description },
       { label: 'director', value: properties?.director },
       { label: 'producer', value: properties?.producer },
-      { label: 'release_date', value: formatDate(properties?.release_date, {month: 'short',  day: 'numeric', year: 'numeric' }) },
-      
+      { label: 'release_date', value: formatDate(properties?.release_date, { month: 'short', day: 'numeric', year: 'numeric' }) },
+
     ];
+
     return (
       <div
         className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
-        onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.title}</span>
@@ -246,6 +292,30 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        <SmallNameCards
+          resourceUrls={properties?.characters}
+          onresourceClick={handleResourceClick}
+          title="Characters in this Film"
+          resourceType="people"
+        />
+        <SmallNameCards
+          resourceUrls={properties?.planets}
+          onresourceClick={handleResourceClick}
+          title="Planets in this Film"
+          resourceType="planets"
+        />
+        <SmallNameCards
+          resourceUrls={properties?.starships}
+          onresourceClick={handleResourceClick}
+          title="Starships in this Film"
+          resourceType="starships"
+        />
+        <SmallNameCards
+          resourceUrls={properties?.vehicles}
+          onresourceClick={handleResourceClick}
+          title="Vehicles in this Film"
+          resourceType="vehicles"
+        />
       </div>
     );
   }

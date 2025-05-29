@@ -12,7 +12,7 @@ const Planets = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
-    data: characters,
+    data: planets,
     searchResults,
     loading,
     searchLoading,
@@ -50,11 +50,11 @@ const Planets = () => {
     if (isSearching) {
       return searchResults?.result || searchResults?.results || [];
     }
-    return characters?.results || [];
-  }, [characters, searchResults, isSearching]);
+    return planets?.results || [];
+  }, [planets, searchResults, isSearching]);
 
   const showLoading = loading || searchLoading;
-  const showPagination = !isSearching && characters && !showLoading && !error;
+  const showPagination = !isSearching && planets && !showLoading && !error;
 
   if (showLoading && !isSearching) {
     return <LoadingSpinner />;

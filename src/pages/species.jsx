@@ -12,7 +12,7 @@ const Species = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
-    data: characters,
+    data: species,
     searchResults,
     loading,
     searchLoading,
@@ -50,11 +50,11 @@ const Species = () => {
     if (isSearching) {
       return searchResults?.result || searchResults?.results || [];
     }
-    return characters?.results || [];
-  }, [characters, searchResults, isSearching]);
+    return species?.results || [];
+  }, [species, searchResults, isSearching]);
 
   const showLoading = loading || searchLoading;
-  const showPagination = !isSearching && characters && !showLoading && !error;
+  const showPagination = !isSearching && species && !showLoading && !error;
 
   if (showLoading && !isSearching) {
     return <LoadingSpinner />;

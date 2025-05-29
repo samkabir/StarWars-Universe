@@ -12,7 +12,7 @@ const Starships = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
-    data: characters,
+    data: starships,
     searchResults,
     loading,
     searchLoading,
@@ -50,11 +50,11 @@ const Starships = () => {
     if (isSearching) {
       return searchResults?.result || searchResults?.results || [];
     }
-    return characters?.results || [];
-  }, [characters, searchResults, isSearching]);
+    return starships?.results || [];
+  }, [starships, searchResults, isSearching]);
 
   const showLoading = loading || searchLoading;
-  const showPagination = !isSearching && characters && !showLoading && !error;
+  const showPagination = !isSearching && starships && !showLoading && !error;
 
   if (showLoading && !isSearching) {
     return <LoadingSpinner />;

@@ -7,12 +7,12 @@ import LoadingSpinner from '../components/UI/LoadingSpinner/LoadingSpinner';
 import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
 import { useResourceData } from '../hooks/useResourceData';
 
-const Home = () => {
+const Films = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
-    data: characters,
+    data: films,
     searchResults,
     loading,
     searchLoading,
@@ -50,11 +50,11 @@ const Home = () => {
     if (isSearching) {
       return searchResults?.result || searchResults?.results || [];
     }
-    return characters?.results || characters?.result || [];
-  }, [characters, searchResults, isSearching]);
+    return films?.results || films?.result || [];
+  }, [films, searchResults, isSearching]);
 
   const showLoading = loading || searchLoading;
-  const showPagination = !isSearching && characters && !showLoading && !error;
+  const showPagination = !isSearching && films && !showLoading && !error;
 
   if (showLoading && !isSearching) {
     return <LoadingSpinner />;
@@ -109,4 +109,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Films;

@@ -2,7 +2,6 @@ import React from 'react';
 import formatDate from '../../../utils/DateConverter/DateConverter';
 
 const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
-  console.log(resource)
   if (resourceType == 'planets') {
     return (
       <div

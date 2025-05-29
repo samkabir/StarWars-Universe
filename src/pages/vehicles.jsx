@@ -12,7 +12,7 @@ const Vehicles = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const {
-    data: characters,
+    data: vehicles,
     searchResults,
     loading,
     searchLoading,
@@ -50,11 +50,11 @@ const Vehicles = () => {
     if (isSearching) {
       return searchResults?.result || searchResults?.results || [];
     }
-    return characters?.results || [];
-  }, [characters, searchResults, isSearching]);
+    return vehicles?.results || [];
+  }, [vehicles, searchResults, isSearching]);
 
   const showLoading = loading || searchLoading;
-  const showPagination = !isSearching && characters && !showLoading && !error;
+  const showPagination = !isSearching && vehicles && !showLoading && !error;
 
   if (showLoading && !isSearching) {
     return <LoadingSpinner />;

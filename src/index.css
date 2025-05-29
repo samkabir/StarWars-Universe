@@ -13,7 +13,7 @@
 }
 
 html{
-  background-image: url('./assets/images/2.webp');
+  background-image: url('../public/images/1.webp');
   background-size: cover;
   /* background-position: center; */
   height: 100%;

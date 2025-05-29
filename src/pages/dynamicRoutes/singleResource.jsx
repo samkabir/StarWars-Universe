@@ -1,7 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useSingleResource } from '../../hooks/useSingleResource';
-import { useResourceType } from '../../hooks/useResourceType';
 import SingleResourceLayout from '../../components/UI/SingleResourceLayout/SingleResourceLayout';
 
 const SingleResources = () => {

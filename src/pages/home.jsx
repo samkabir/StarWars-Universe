@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Pagination from '../components/UI/Pagination/Pagination';
 import SearchBar from '../components/UI/SearchBar/SearchBar';
 import ResourceGrid from '../components/UI/Grids/ResourceGrid';
@@ -9,6 +9,7 @@ import { useResourceData } from '../hooks/useResourceData';
 
 const Home = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const {
     data: characters,
@@ -23,8 +24,26 @@ const Home = () => {
     handleSearch,
   } = useResourceData('people');
 
+  const searchQuery = searchParams.get('search') || '';
+
+  useEffect(() => {
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    } else {
+      handleSearch(''); 
+    }
+  }, [searchQuery, handleSearch]);
+
   const handleResourceClick = (uid) => {
     navigate(`/people/${uid}`);
+  };
+
+  const handleSearchWithURL = (searchTerm) => {
+    if (searchTerm.trim()) {
+      setSearchParams({ search: searchTerm });
+    } else {
+      setSearchParams({});
+    }
   };
 
   const displayResources = useMemo(() => {
@@ -58,14 +77,16 @@ const Home = () => {
 
       <div className="mb-6 text-right">
         <SearchBar
-          onSearch={handleSearch}
+          onSearch={handleSearchWithURL}
           placeholder="May the Force be with you..."
+          initialValue={searchQuery} // Pass initial value from URL
         />
       </div>
 
       {searchLoading && <LoadingSpinner message="Searching..." />}
 
       <ResourceGrid
+        resourceType='people'
         resources={displayResources}
         onResourceClick={handleResourceClick}
         emptyMessage={

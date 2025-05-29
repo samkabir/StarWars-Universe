@@ -1,59 +1,112 @@
-import React, { useEffect, useState } from 'react';
-// import { fetchResource } from '../api/fetchResource';
+import React, { useMemo, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import Pagination from '../components/UI/Pagination/Pagination';
+import SearchBar from '../components/UI/SearchBar/SearchBar';
+import ResourceGrid from '../components/UI/Grids/ResourceGrid';
+import LoadingSpinner from '../components/UI/LoadingSpinner/LoadingSpinner';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
+import { useResourceData } from '../hooks/useResourceData';
 
-const Films = () => {
-  const [films, setFilms] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const Home = () => {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetchResource("films");
+  const {
+    data: characters,
+    searchResults,
+    loading,
+    searchLoading,
+    error,
+    currentPage,
+    totalPages,
+    isSearching,
+    setCurrentPage,
+    handleSearch,
+  } = useResourceData('films');
 
-  //     if (response.success && response.data) {
-  //       setFilms(response.data.result);
-  //       setError(null);
-  //     } else {
-  //       setError(response.message || 'Something went wrong');
-  //     }
-  //     setLoading(false);
-  //   };
+  const searchQuery = searchParams.get('search') || '';
 
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    } else {
+      handleSearch(''); 
+    }
+  }, [searchQuery, handleSearch]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const handleResourceClick = (uid) => {
+    navigate(`/films/${uid}`);
+  };
+
+  const handleSearchWithURL = (searchTerm) => {
+    if (searchTerm.trim()) {
+      setSearchParams({ search: searchTerm });
+    } else {
+      setSearchParams({});
+    }
+  };
+
+  const displayResources = useMemo(() => {
+    if (isSearching) {
+      return searchResults?.result || searchResults?.results || [];
+    }
+    return characters?.results || characters?.result || [];
+  }, [characters, searchResults, isSearching]);
+
+  const showLoading = loading || searchLoading;
+  const showPagination = !isSearching && characters && !showLoading && !error;
+
+  if (showLoading && !isSearching) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return (
+      <ErrorMessage
+        message={error}
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
 
   return (
-    <div>
-      <h1>Films</h1>
-      {films && films.length > 0 ? (
-        <div>
-          {/* {films.map((film) => (
-            <div key={film.uid} style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc' }}>
-              <h2>{film.properties.title}</h2>
-              <p><strong>Episode:</strong> {film.properties.episode_id}</p>
-              <p><strong>Director:</strong> {film.properties.director}</p>
-              <p><strong>Producer:</strong> {film.properties.producer}</p>
-              <p><strong>Release Date:</strong> {film.properties.release_date}</p>
-              <p><strong>Description:</strong> {film.description}</p>
-              <details>
-                <summary>Opening Crawl</summary>
-                <pre style={{ whiteSpace: 'pre-wrap', fontSize: '14px' }}>
-                  {film.properties.opening_crawl}
-                </pre>
-              </details>
-            </div>
-          ))} */}
+    <div className="container mx-auto px-4 py-6">
+      <div className='flex justify-center'>
+        <h1 className="text-3xl font-bold mb-6">Select A Star Wars Film</h1>
+      </div>
+
+      {/* <div className="mb-6 text-right">
+        <SearchBar
+          onSearch={handleSearchWithURL}
+          placeholder="May the Force be with you..."
+          initialValue={searchQuery} // Pass initial value from URL
+        />
+      </div> */}
+
+      {searchLoading && <LoadingSpinner message="Searching..." />}
+
+      <ResourceGrid
+        resourceType='films'
+        resources={displayResources}
+        onResourceClick={handleResourceClick}
+        emptyMessage={
+          isSearching
+            ? "No films found matching your search."
+            : "No films available."
+        }
+      />
+
+      {/* {showPagination && (
+        <div className="mt-8 flex justify-center">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
         </div>
-      ) : (
-        <p>No films found</p>
-      )}
-      
-     
+      )} */}
     </div>
   );
 };
 
-export default Films;
+export default Home;

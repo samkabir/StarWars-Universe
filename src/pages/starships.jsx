@@ -1,34 +1,110 @@
-import React, { useEffect, useState } from 'react';
-// import { fetchResource } from '../api/fetchResource';
+import React, { useMemo, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import Pagination from '../components/UI/Pagination/Pagination';
+import SearchBar from '../components/UI/SearchBar/SearchBar';
+import ResourceGrid from '../components/UI/Grids/ResourceGrid';
+import LoadingSpinner from '../components/UI/LoadingSpinner/LoadingSpinner';
+import ErrorMessage from '../components/UI/ErrorMessage/ErrorMessage';
+import { useResourceData } from '../hooks/useResourceData';
 
 const Starships = () => {
-  const [starships, setStarships] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetchResource("starships");
+  const {
+    data: characters,
+    searchResults,
+    loading,
+    searchLoading,
+    error,
+    currentPage,
+    totalPages,
+    isSearching,
+    setCurrentPage,
+    handleSearch,
+  } = useResourceData('starships');
 
-  //     if (response.success && response.data) {
-  //       setStarships(response.data);
-  //       setError(null);
-  //     } else {
-  //       setError(response.message || 'Something went wrong');
-  //     }
-  //     setLoading(false);
-  //   };
+  const searchQuery = searchParams.get('search') || '';
 
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    if (searchQuery) {
+      handleSearch(searchQuery);
+    } else {
+      handleSearch(''); 
+    }
+  }, [searchQuery, handleSearch]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  const handleResourceClick = (uid) => {
+    navigate(`/starships/${uid}`);
+  };
+
+  const handleSearchWithURL = (searchTerm) => {
+    if (searchTerm.trim()) {
+      setSearchParams({ search: searchTerm });
+    } else {
+      setSearchParams({});
+    }
+  };
+
+  const displayResources = useMemo(() => {
+    if (isSearching) {
+      return searchResults?.result || searchResults?.results || [];
+    }
+    return characters?.results || [];
+  }, [characters, searchResults, isSearching]);
+
+  const showLoading = loading || searchLoading;
+  const showPagination = !isSearching && characters && !showLoading && !error;
+
+  if (showLoading && !isSearching) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return (
+      <ErrorMessage
+        message={error}
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
 
   return (
-    <div>
-      <h1>Starships</h1>
-      <pre>{JSON.stringify(starships?.results, null, 2)}</pre>
+    <div className="container mx-auto px-4 py-6">
+      <div className='flex justify-center'>
+        <h1 className="text-3xl font-bold mb-6">Find Starships</h1>
+      </div>
+
+      <div className="mb-6 text-right">
+        <SearchBar
+          onSearch={handleSearchWithURL}
+          placeholder="May the Force be with you..."
+          initialValue={searchQuery} // Pass initial value from URL
+        />
+      </div>
+
+      {searchLoading && <LoadingSpinner message="Searching..." />}
+
+      <ResourceGrid
+        resourceType='starships'
+        resources={displayResources}
+        onResourceClick={handleResourceClick}
+        emptyMessage={
+          isSearching
+            ? "No starships found matching your search."
+            : "No starships available."
+        }
+      />
+
+      {showPagination && (
+        <div className="mt-8 flex justify-center">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      )}
     </div>
   );
 };

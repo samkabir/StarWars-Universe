@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const SearchBar = ({ onSearch, placeholder = "Search characters..." }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SearchBar = ({ onSearch, placeholder = "Search characters...", initialValue = '' }) => {
+  const [searchTerm, setSearchTerm] = useState(initialValue);
+
+  // Update local state when initialValue changes (from URL)
+  useEffect(() => {
+    setSearchTerm(initialValue);
+  }, [initialValue]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -6,7 +6,8 @@ const ResourceGrid = ({
   resources, 
   onResourceClick, 
   emptyMessage = "No items found",
-  cardClassName = ''
+  cardClassName = '',
+  resourceType = 'people'
 }) => {
   if (!resources || resources.length === 0) {
     return <p className="text-gray-500 text-center py-8">{emptyMessage}</p>;
@@ -20,6 +21,7 @@ const ResourceGrid = ({
           resource={resource}
           onClick={onResourceClick}
           className={cardClassName}
+          resourceType={resourceType}
         />
       ))}
     </div>

@@ -70,12 +70,12 @@ const Home = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 fade-in">
       <div className='flex justify-center'>
         <h1 className="text-3xl font-bold mb-6">Use the Force to find a Jedi or a Sith</h1>
       </div>
 
-      <div className="mb-6 text-right">
+      <div className="mb-6 text-right fade-in">
         <SearchBar
           onSearch={handleSearchWithURL}
           placeholder="May the Force be with you..."
@@ -97,7 +97,7 @@ const Home = () => {
       />
 
       {showPagination && (
-        <div className="mt-8 flex justify-center">
+        <div className="mt-8 flex justify-center fade-in">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 const SingleResource = ({ resource, resourceType, }) => {
   const navigate = useNavigate();
-  console.log(resource)
-
   const handleResourceClick = (character, resourceType) => {
     navigate(`/${resourceType}/${character.id}`);
   };
@@ -32,7 +30,7 @@ const SingleResource = ({ resource, resourceType, }) => {
     ];
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md bg-gray-800`}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -70,7 +68,7 @@ const SingleResource = ({ resource, resourceType, }) => {
     ];
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md bg-gray-800`}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -95,7 +93,7 @@ const SingleResource = ({ resource, resourceType, }) => {
           <SmallNameCards
             resourceUrls={[properties.homeworld]}
             onresourceClick={handleResourceClick}
-            title="World"
+            title="HomeWorld"
             resourceType="planets"
           />
         )}
@@ -117,7 +115,7 @@ const SingleResource = ({ resource, resourceType, }) => {
     ];
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md bg-gray-800`}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -138,12 +136,15 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
+        {properties?.people && 
         <SmallNameCards
           resourceUrls={properties?.people}
           onresourceClick={handleResourceClick}
-          title="Characters in this Film"
+          title="Characters of this species"
           resourceType="people"
         />
+        }
+        
       </div>
     );
   } else if (resourceType == 'starships') {
@@ -165,7 +166,7 @@ const SingleResource = ({ resource, resourceType, }) => {
     ];
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md bg-gray-800`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-center text-4xl">
@@ -187,17 +188,20 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <SmallNameCards
-          resourceUrls={properties?.films}
-          onresourceClick={handleResourceClick}
-          title="Films"
-          resourceType="films"
-        />
+        {properties?.films &&
+          <SmallNameCards
+            resourceUrls={properties?.films}
+            onresourceClick={handleResourceClick}
+            title="Starship seen in these Films"
+            resourceType="films"
+          />
+        }
+       
         {properties?.pilots?.length > 0 &&
           <SmallNameCards
             resourceUrls={properties?.pilots}
             onresourceClick={handleResourceClick}
-            title="Pilots"
+            title="Pilots of this Starship"
             resourceType="people"
           />}
       </div>
@@ -220,7 +224,7 @@ const SingleResource = ({ resource, resourceType, }) => {
     ];
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md bg-gray-800`}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.name}</span>
@@ -241,17 +245,20 @@ const SingleResource = ({ resource, resourceType, }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <SmallNameCards
+        {properties?.films && 
+         <SmallNameCards
           resourceUrls={properties?.films}
           onresourceClick={handleResourceClick}
-          title="Films"
+          title="Vehicles seen in these Films"
           resourceType="films"
         />
+        }
+       
         {properties?.pilots?.length > 0 &&
           <SmallNameCards
             resourceUrls={properties?.pilots}
             onresourceClick={handleResourceClick}
-            title="Pilots"
+            title="Pilots who drove this vehicle"
             resourceType="people"
           />}
 
@@ -271,10 +278,13 @@ const SingleResource = ({ resource, resourceType, }) => {
 
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md`}
+        className={`p-4 rounded-xl border border-gray-300 shadow-white shadow-md bg-gray-800`}
       >
         <h1 className="font-bold text-center text-4xl">
           <span className='text-red-500'>{resource.properties?.title}</span>
+        </h1>
+        <h1 className="font-semibold text-center text-xl mt-5">
+          <span className='text-gray-200'>{resource.properties?.opening_crawl}</span>
         </h1>
         <TableContainer component={Paper} className="rounded-lg shadow-md overflow-hidden my-10">
           <Table className="min-w-full">

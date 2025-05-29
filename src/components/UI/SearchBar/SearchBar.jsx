@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const SearchBar = ({ onSearch, placeholder = "Search characters...", initialValue = '' }) => {
   const [searchTerm, setSearchTerm] = useState(initialValue);
 
-  // Update local state when initialValue changes (from URL)
   useEffect(() => {
     setSearchTerm(initialValue);
   }, [initialValue]);
@@ -11,7 +10,7 @@ const SearchBar = ({ onSearch, placeholder = "Search characters...", initialValu
   useEffect(() => {
     const timer = setTimeout(() => {
       onSearch(searchTerm);
-    }, 2000); // 2 second debounce
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [searchTerm, onSearch]);
@@ -50,18 +49,18 @@ const SearchBar = ({ onSearch, placeholder = "Search characters...", initialValu
             style={{
               position: 'absolute',
               right: '12px',
-              top: '50%',
+              top: '42%',
               transform: 'translateY(-50%)',
               background: 'none',
               border: 'none',
-              fontSize: '18px',
+              fontSize: '28px',
               cursor: 'pointer',
               color: '#666',
               padding: '0',
               lineHeight: '1',
             }}
-            onMouseEnter={(e) => e.target.style.color = '#333'}
-            onMouseLeave={(e) => e.target.style.color = '#666'}
+            onMouseEnter={(e) => e.target.style.color = '#fff'}
+            onMouseLeave={(e) => e.target.style.color = '#cecece'}
           >
             ×
           </button>

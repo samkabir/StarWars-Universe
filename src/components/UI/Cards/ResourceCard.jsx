@@ -1,11 +1,10 @@
-import React from 'react';
 import formatDate from '../../../utils/DateConverter/DateConverter';
 
 const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
   if (resourceType == 'planets') {
     return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-gray-900 transition-colors transform duration-500 hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
+        className={`p-4 rounded-xl border border-gray-300 cursor-pointer bg-gray-800 hover:bg-gray-900 transition-colors transition duration-700 hover:text-white hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg transition-shadow transition-transform ${className}`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-2xl">
@@ -41,7 +40,7 @@ const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
   } else if (resourceType == 'people'){
      return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors transform duration-500 hover:text-black hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
+        className={`p-4 rounded-xl border border-gray-300 cursor-pointer bg-gray-800 hover:bg-gray-900 transition-colors transition duration-700 hover:text-white hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg transition-shadow transition-transform ${className}`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-2xl">
@@ -73,7 +72,7 @@ const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
   } else if (resourceType == 'species'){
      return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors transform duration-500 hover:text-black hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
+        className={`p-4 rounded-xl border border-gray-300 cursor-pointer bg-gray-800 hover:bg-gray-900 transition-colors transition duration-700 hover:text-white hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg transition-shadow transition-transform ${className}`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-2xl">
@@ -102,7 +101,7 @@ const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
   } else if (resourceType == 'starships'){
      return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-gray-100 transition-colors transform duration-500 hover:text-black hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
+        className={`p-4 rounded-xl border border-gray-300 cursor-pointer bg-gray-800 hover:bg-gray-900 transition-colors transition duration-700 hover:text-white hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg transition-shadow transition-transform ${className}`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-2xl">
@@ -125,7 +124,7 @@ const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
   } else if (resourceType == 'vehicles'){
      return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-red-100 transition-colors transform duration-500 hover:text-black hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
+        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-red-900 transition-colors transform duration-500 hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-2xl">
@@ -148,7 +147,7 @@ const ResourceCard = ({ resource, onClick, className = '', resourceType }) => {
   } else {
      return (
       <div
-        className={`p-4 rounded-xl border border-gray-300 cursor-pointer hover:bg-red-100 transition-colors transform duration-500 hover:text-black hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg ${className}`}
+        className={`p-4 rounded-xl border border-gray-300 cursor-pointer bg-gray-800 hover:bg-gray-900 transition-colors transition duration-700 hover:text-white hover:scale-[1.02] shadow-white hover:shadow-white shadow-md hover:shadow-lg transition-shadow transition-transform ${className}`}
         onClick={() => onClick(resource.uid)}
       >
         <h1 className="font-bold text-2xl">

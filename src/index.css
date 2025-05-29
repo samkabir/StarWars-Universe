@@ -8,6 +8,19 @@
   box-sizing: border-box;
 }
 
+.fade-in {
+  animation: fadeIn 2s;
+}
+
+html{
+  background-image: url('./assets/images/2.webp');
+  background-size: cover;
+  /* background-position: center; */
+  height: 100%;
+  width: 100%;
+}
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

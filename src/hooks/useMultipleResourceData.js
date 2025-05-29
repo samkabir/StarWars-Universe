@@ -57,7 +57,6 @@ export const useMultipleResourceData = (resourceUrls, resourceType) => {
 
     try {
       const resourcePromises = resourceUrls.map(async (url) => {
-        // Check cache first
         if (resourceCache[url]) {
           return resourceCache[url];
         }
@@ -100,7 +99,6 @@ export const useMultipleResourceData = (resourceUrls, resourceType) => {
   }, [fetchResources]);
 
   const refetch = useCallback(() => {
-    // Clear cache for these URLs
     resourceUrls?.forEach(url => {
       delete resourceCache[url];
     });

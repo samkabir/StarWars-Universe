@@ -1,11 +1,12 @@
 import React from 'react';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { useMultipleResourceData } from '../../../hooks/useMultipleResourceData';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const SmallNameCard = ({ resource, onClick }) => {
   return (
     <div 
-      className="bg-gray-300 rounded-lg shadow-md p-4 border border-gray-200 hover:shadow-lg transition-shadow duration-200 cursor-pointer min-w-[200px] flex-shrink-0"
+      className="bg-gray-300 rounded-lg shadow-md shadow-white hover:shadow-white p-4 border hover:bg-white border-gray-200 hover:shadow-lg hover:scale-[1.02] transition-shadow transition duration-500 cursor-pointer min-w-[200px] flex-shrink-0 transition-transform"
       onClick={onClick}
     >
       <h3 className="font-semibold text-lg text-gray-800 text-center">
@@ -33,15 +34,7 @@ const SmallNameCards = ({ resourceUrls, onresourceClick, title = "resources", re
     return (
       <div className="my-6">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">{title}</h2>
-        <div className="text-center py-8">
-          <p className="text-red-600 mb-4">{error}</p>
-          <button 
-            onClick={refetch}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-          >
-            Retry
-          </button>
-        </div>
+        <ErrorMessage message={error} onRetry={refetch} />
       </div>
     );
   }

@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import NavCard from "../../UI/Cards/NavCard";
 
 const Header = () => {
     const links = [
         {
             to: "/",
-            label: "Home"
+            label: "People"
         },
         {
             to: "/films",
@@ -29,16 +30,16 @@ const Header = () => {
         }
     ];
   return (
-    <div className="p-8 text-center bg-red-100 w-full flex justify-center items-center">
+    <div className="p-8 text-center bg-gray-900 w-full flex justify-center items-center">
       <div className="flex justify-center items-center gap-4">
         {
             links.map((link) => (
                 <Link
                     key={link.to}
                     to={link.to}
-                    className="text-black font-bold hover:underline"
+                    className="text-white font-bold"
                 >
-                    {link.label}
+                    <NavCard label={link.label} route={link.to} />
                 </Link>
             ))
         }

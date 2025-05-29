@@ -16,7 +16,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handlePrev}
         disabled={currentPage === 1}
-        className="px-3 py-1 border border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-1 border border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed bg-white text-black disabled:bg-gray-200"
       >
         Prev
       </button>
@@ -27,8 +27,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => onPageChange(page)}
           className={`px-3 py-1 border border-gray-300 rounded cursor-pointer transition-colors ${
             page === currentPage
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-100 text-black hover:bg-blue-100'
+              ? 'bg-gray-200 text-black'
+              : 'bg-gray-900 text-white hover:bg-blue-100'
           }`}
         >
           {page}
@@ -38,7 +38,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={handleNext}
         disabled={currentPage === totalPages}
-        className="px-3 py-1 border border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-1 border border-gray-300 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed bg-white text-black disabled:bg-gray-200"
       >
         Next
       </button>
